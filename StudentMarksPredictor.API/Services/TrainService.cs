@@ -1,4 +1,5 @@
 using StudentMarksPredictor.API.DTOs;
+using StudentMarksPredictor.API.Validators;
 using StudentMarksPredictor.Shared.Exceptions;
 using StudentMarksPredictor.Data;
 using NN = StudentMarksPredictor.NeuralNetwork;
@@ -16,6 +17,8 @@ public class TrainService
 
     public async Task<TrainResponse> TrainModelAsync(TrainRequest request)
     {
+        TrainRequestValidator.Validate(request);
+
         var records = await _repo.GetAllTrainingRecordsAsync();
         if (records.Count == 0)
             throw new TrainingDataNotFoundException();

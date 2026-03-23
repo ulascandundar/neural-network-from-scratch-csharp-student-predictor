@@ -1,4 +1,5 @@
 using StudentMarksPredictor.API.DTOs;
+using StudentMarksPredictor.API.Validators;
 using StudentMarksPredictor.Shared.Exceptions;
 using StudentMarksPredictor.Data;
 
@@ -15,6 +16,8 @@ public class PredictService
 
     public async Task<PredictResponse> PredictMarksAsync(PredictRequest request)
     {
+        PredictRequestValidator.Validate(request);
+
         var session = await _repo.GetLatestSessionAsync();
         if (session == null)
             throw new ModelNotFoundException();

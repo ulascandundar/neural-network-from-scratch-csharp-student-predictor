@@ -1,3 +1,5 @@
+using StudentMarksPredictor.Shared.Exceptions;
+
 namespace StudentMarksPredictor.NeuralNetwork;
 
 // basic feedforward neural network with one hidden layer
@@ -78,6 +80,9 @@ public class NeuralNetwork
     // also caches intermediate values for backprop
     public double Forward(double[] input)
     {
+        if (input.Length != _inputSize)
+            throw new InputSizeMismatchException(_inputSize, input.Length);
+
         // calculate hidden layer activations
         for (int j = 0; j < _hiddenSize; j++)
         {
