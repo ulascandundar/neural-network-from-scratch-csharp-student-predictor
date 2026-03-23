@@ -1,9 +1,8 @@
 namespace StudentMarksPredictor.Data.Models;
 
-public class ModelWeight
+public class ModelWeight : BaseEntity
 {
-    public int Id { get; set; }
-    public int SessionId { get; set; }
+    public Guid SessionId { get; set; }
     public string Layer { get; set; } = "";
     public int Row { get; set; }
     public int Col { get; set; }

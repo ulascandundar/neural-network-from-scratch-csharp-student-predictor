@@ -1,9 +1,7 @@
 namespace StudentMarksPredictor.Data.Models;
 
-public class TrainingSession
+public class TrainingSession : BaseEntity
 {
-    public int Id { get; set; }
-    public DateTime CreatedAt { get; set; }
     public int Epochs { get; set; }
     public double LearningRate { get; set; }
     public double FinalMSE { get; set; }

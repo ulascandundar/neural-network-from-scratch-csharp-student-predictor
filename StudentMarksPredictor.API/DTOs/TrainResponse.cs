@@ -2,7 +2,7 @@ namespace StudentMarksPredictor.API.DTOs;
 
 public class TrainResponse
 {
-    public int SessionId { get; set; }
+    public Guid SessionId { get; set; }
     public double FinalMSE { get; set; }
     public int Epochs { get; set; }
     public double LearningRate { get; set; }

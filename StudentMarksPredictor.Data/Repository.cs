@@ -46,7 +46,6 @@ public class Repository
     {
         var session = new TrainingSession
         {
-            CreatedAt = DateTime.UtcNow,
             Epochs = epochs,
             LearningRate = learningRate,
             FinalMSE = finalMSE,
@@ -76,7 +75,7 @@ public class Repository
     {
         return await _db.TrainingSessions
             .Include(s => s.Weights)
-            .OrderByDescending(s => s.Id)
+            .OrderByDescending(s => s.CreatedAt)
             .FirstOrDefaultAsync();
     }
 
