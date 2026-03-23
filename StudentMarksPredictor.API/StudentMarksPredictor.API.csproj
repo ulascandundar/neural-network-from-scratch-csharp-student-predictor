@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\StudentMarksPredictor.Data\StudentMarksPredictor.Data.csproj" />
     <ProjectReference Include="..\StudentMarksPredictor.NeuralNetwork\StudentMarksPredictor.NeuralNetwork.csproj" />
+    <ProjectReference Include="..\StudentMarksPredictor.Shared\StudentMarksPredictor.Shared.csproj" />
   </ItemGroup>
 
 </Project>

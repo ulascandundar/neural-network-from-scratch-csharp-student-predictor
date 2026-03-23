@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StudentMarksPredictor.API.Middlewares;
 using StudentMarksPredictor.API.Services;
 using StudentMarksPredictor.Data;
 
@@ -30,6 +31,8 @@ using (var scope = app.Services.CreateScope())
     var trainService = scope.ServiceProvider.GetRequiredService<TrainService>();
     await trainService.TrainIfNoModelExistsAsync();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

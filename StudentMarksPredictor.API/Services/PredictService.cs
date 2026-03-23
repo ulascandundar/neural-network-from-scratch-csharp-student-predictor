@@ -1,4 +1,5 @@
 using StudentMarksPredictor.API.DTOs;
+using StudentMarksPredictor.Shared.Exceptions;
 using StudentMarksPredictor.Data;
 
 namespace StudentMarksPredictor.API.Services;
@@ -16,7 +17,7 @@ public class PredictService
     {
         var session = await _repo.GetLatestSessionAsync();
         if (session == null)
-            throw new InvalidOperationException("Egitilmis model bulunamadi. Once POST /api/train ile modeli egitin.");
+            throw new ModelNotFoundException();
 
         var (network, normalizer) = _repo.LoadModel(session);
 

@@ -1,4 +1,5 @@
 using StudentMarksPredictor.API.DTOs;
+using StudentMarksPredictor.Shared.Exceptions;
 using StudentMarksPredictor.Data;
 using NN = StudentMarksPredictor.NeuralNetwork;
 
@@ -17,7 +18,7 @@ public class TrainService
     {
         var records = await _repo.GetAllTrainingRecordsAsync();
         if (records.Count == 0)
-            throw new InvalidOperationException("Veritabaninda egitim verisi bulunamadi.");
+            throw new TrainingDataNotFoundException();
 
         var inputs = records.Select(r => new double[] { r.NumberCourses, r.TimeStudy }).ToArray();
         var outputs = records.Select(r => r.Marks).ToArray();
