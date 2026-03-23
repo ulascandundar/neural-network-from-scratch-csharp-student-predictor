@@ -53,13 +53,14 @@ public class Repository
 
     public async Task<TrainingSession> SaveSessionAsync(
         NN.NeuralNetwork network, NN.Normalizer normalizer,
-        int epochs, double learningRate, double finalMSE)
+        int epochs, double learningRate, double trainMSE, double testMSE)
     {
         var session = new TrainingSession
         {
             Epochs = epochs,
             LearningRate = learningRate,
-            FinalMSE = finalMSE,
+            TrainMSE = trainMSE,
+            TestMSE = testMSE,
             HiddenSize = network.HiddenSize,
             InputMin0 = normalizer.InputMin[0],
             InputMax0 = normalizer.InputMax[0],

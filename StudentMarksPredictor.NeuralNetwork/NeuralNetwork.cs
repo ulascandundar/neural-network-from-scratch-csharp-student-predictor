@@ -155,6 +155,19 @@ public class NeuralNetwork
         return lastMSE;
     }
 
+    // calculates mean squared error on a given dataset
+    public double CalculateMSE(double[][] inputs, double[] outputs)
+    {
+        double totalLoss = 0;
+        for (int i = 0; i < inputs.Length; i++)
+        {
+            double predicted = Forward(inputs[i]);
+            double error = predicted - outputs[i];
+            totalLoss += error * error;
+        }
+        return totalLoss / inputs.Length;
+    }
+
     // just a wrapper around forward for cleaner api usage
     public double Predict(double[] input) => Forward(input);
 

@@ -4,7 +4,8 @@ public class TrainingSession : BaseEntity
 {
     public int Epochs { get; set; }
     public double LearningRate { get; set; }
-    public double FinalMSE { get; set; }
+    public double TrainMSE { get; set; }
+    public double TestMSE { get; set; }
     public int HiddenSize { get; set; }
     public double InputMin0 { get; set; }
     public double InputMax0 { get; set; }

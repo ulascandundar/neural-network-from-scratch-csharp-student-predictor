@@ -23,27 +23,55 @@ public class TrainService
         if (records.Count == 0)
             throw new TrainingDataNotFoundException();
 
-        var inputs = records.Select(r => new double[] { r.NumberCourses, r.TimeStudy }).ToArray();
-        var outputs = records.Select(r => r.Marks).ToArray();
+        var allInputs = records.Select(r => new double[] { r.NumberCourses, r.TimeStudy }).ToArray();
+        var allOutputs = records.Select(r => r.Marks).ToArray();
 
+        // shuffle before split for randomness
+        var rng = new Random(42);
+        var indices = Enumerable.Range(0, records.Count).ToArray();
+        for (int i = indices.Length - 1; i > 0; i--)
+        {
+            int j = rng.Next(i + 1);
+            (indices[i], indices[j]) = (indices[j], indices[i]);
+        }
+
+        int testCount = (int)(records.Count * request.TestSplitRatio);
+        int trainCount = records.Count - testCount;
+
+        var trainInputs = indices.Take(trainCount).Select(i => allInputs[i]).ToArray();
+        var trainOutputs = indices.Take(trainCount).Select(i => allOutputs[i]).ToArray();
+        var testInputs = indices.Skip(trainCount).Select(i => allInputs[i]).ToArray();
+        var testOutputs = indices.Skip(trainCount).Select(i => allOutputs[i]).ToArray();
+
+        // fit normalizer only on training data
         var normalizer = new NN.Normalizer();
-        normalizer.Fit(inputs, outputs);
-        var (normX, normY) = normalizer.Transform(inputs, outputs);
+        normalizer.Fit(trainInputs, trainOutputs);
+        var (normTrainX, normTrainY) = normalizer.Transform(trainInputs, trainOutputs);
 
         var network = new NN.NeuralNetwork(2, request.HiddenSize);
-        double finalMSE = network.Train(normX, normY, request.Epochs, request.LearningRate);
+        double trainMSE = network.Train(normTrainX, normTrainY, request.Epochs, request.LearningRate);
+
+        // evaluate on test set
+        double testMSE = 0;
+        if (testCount > 0)
+        {
+            var (normTestX, normTestY) = normalizer.Transform(testInputs, testOutputs);
+            testMSE = network.CalculateMSE(normTestX, normTestY);
+        }
 
         var session = await _repo.SaveSessionAsync(network, normalizer,
-            request.Epochs, request.LearningRate, finalMSE);
+            request.Epochs, request.LearningRate, trainMSE, testMSE);
 
         return new TrainResponse
         {
             SessionId = session.Id,
-            FinalMSE = finalMSE,
+            TrainMSE = Math.Round(trainMSE, 4),
+            TestMSE = Math.Round(testMSE, 4),
             Epochs = request.Epochs,
             LearningRate = request.LearningRate,
             HiddenSize = request.HiddenSize,
-            TrainingRecords = records.Count,
+            TrainRecords = trainCount,
+            TestRecords = testCount,
             CreatedAt = session.CreatedAt
         };
     }

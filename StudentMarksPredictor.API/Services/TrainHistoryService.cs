@@ -24,7 +24,8 @@ public class TrainHistoryService
                 SessionId = s.Id,
                 Epochs = s.Epochs,
                 LearningRate = s.LearningRate,
-                FinalMSE = s.FinalMSE,
+                TrainMSE = s.TrainMSE,
+                TestMSE = s.TestMSE,
                 HiddenSize = s.HiddenSize,
                 CreatedAt = s.CreatedAt
             }).ToList()
