@@ -82,6 +82,13 @@ public class Repository
         return session;
     }
 
+    public async Task<List<TrainingSession>> GetAllSessionsAsync()
+    {
+        return await _db.TrainingSessions
+            .OrderByDescending(s => s.CreatedAt)
+            .ToListAsync();
+    }
+
     public async Task<TrainingSession?> GetLatestSessionAsync()
     {
         return await _db.TrainingSessions

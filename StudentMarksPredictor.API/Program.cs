@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+using StudentMarksPredictor.API.Extensions;
 using StudentMarksPredictor.API.Middlewares;
 using StudentMarksPredictor.API.Services;
 using StudentMarksPredictor.Data;
@@ -9,15 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=studentmarks.db"));
-
-builder.Services.AddScoped<Repository>();
-builder.Services.AddScoped<TrainService>();
-builder.Services.AddScoped<FineTuneService>();
-builder.Services.AddScoped<TrainingDataService>();
-builder.Services.AddScoped<PredictService>();
-builder.Services.AddScoped<ScoreService>();
+builder.Services.AddDatabase("Data Source=studentmarks.db");
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

@@ -10,11 +10,20 @@ public class TrainController : ControllerBase
 {
     private readonly TrainService _trainService;
     private readonly FineTuneService _fineTuneService;
+    private readonly TrainHistoryService _historyService;
 
-    public TrainController(TrainService trainService, FineTuneService fineTuneService)
+    public TrainController(TrainService trainService, FineTuneService fineTuneService, TrainHistoryService historyService)
     {
         _trainService = trainService;
         _fineTuneService = fineTuneService;
+        _historyService = historyService;
+    }
+
+    [HttpGet("history")]
+    public async Task<ActionResult<ApiResponse<TrainHistoryResponse>>> GetHistory()
+    {
+        var result = await _historyService.GetHistoryAsync();
+        return Ok(ApiResponse<TrainHistoryResponse>.Ok(result, $"{result.TotalSessions} egitim listelendi"));
     }
 
     [HttpPost("full")]

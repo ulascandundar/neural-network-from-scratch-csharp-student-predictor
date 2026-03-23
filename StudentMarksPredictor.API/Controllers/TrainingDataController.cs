@@ -9,10 +9,19 @@ namespace StudentMarksPredictor.API.Controllers;
 public class TrainingDataController : ControllerBase
 {
     private readonly TrainingDataService _service;
+    private readonly TrainingDataQueryService _queryService;
 
-    public TrainingDataController(TrainingDataService service)
+    public TrainingDataController(TrainingDataService service, TrainingDataQueryService queryService)
     {
         _service = service;
+        _queryService = queryService;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<ApiResponse<GetTrainingDataResponse>>> GetAll()
+    {
+        var result = await _queryService.GetAllAsync();
+        return Ok(ApiResponse<GetTrainingDataResponse>.Ok(result, $"{result.TotalRecords} kayit listelendi"));
     }
 
     [HttpPost]
