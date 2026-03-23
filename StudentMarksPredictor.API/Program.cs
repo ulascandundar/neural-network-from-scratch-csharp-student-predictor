@@ -14,6 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<Repository>();
 builder.Services.AddScoped<TrainService>();
+builder.Services.AddScoped<FineTuneService>();
+builder.Services.AddScoped<TrainingDataService>();
 builder.Services.AddScoped<PredictService>();
 
 var app = builder.Build();

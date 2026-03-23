@@ -40,6 +40,17 @@ public class Repository
         return await _db.TrainingRecords.ToListAsync();
     }
 
+    public async Task AddTrainingRecordsAsync(List<TrainingRecord> records)
+    {
+        _db.TrainingRecords.AddRange(records);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<int> GetTrainingRecordCountAsync()
+    {
+        return await _db.TrainingRecords.CountAsync();
+    }
+
     public async Task<TrainingSession> SaveSessionAsync(
         NN.NeuralNetwork network, NN.Normalizer normalizer,
         int epochs, double learningRate, double finalMSE)

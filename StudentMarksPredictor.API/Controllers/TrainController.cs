@@ -8,17 +8,26 @@ namespace StudentMarksPredictor.API.Controllers;
 [Route("api/[controller]")]
 public class TrainController : ControllerBase
 {
-    private readonly TrainService _service;
+    private readonly TrainService _trainService;
+    private readonly FineTuneService _fineTuneService;
 
-    public TrainController(TrainService service)
+    public TrainController(TrainService trainService, FineTuneService fineTuneService)
     {
-        _service = service;
+        _trainService = trainService;
+        _fineTuneService = fineTuneService;
     }
 
-    [HttpPost]
-    public async Task<ActionResult<ApiResponse<TrainResponse>>> Train([FromBody] TrainRequest request)
+    [HttpPost("full")]
+    public async Task<ActionResult<ApiResponse<TrainResponse>>> FullTrain([FromBody] TrainRequest request)
     {
-        var result = await _service.TrainModelAsync(request);
-        return Ok(ApiResponse<TrainResponse>.Ok(result, "Model basariyla egitildi"));
+        var result = await _trainService.TrainModelAsync(request);
+        return Ok(ApiResponse<TrainResponse>.Ok(result, "Model sifirdan egitildi"));
+    }
+
+    [HttpPost("fine-tune")]
+    public async Task<ActionResult<ApiResponse<TrainResponse>>> FineTune([FromBody] TrainRequest request)
+    {
+        var result = await _fineTuneService.FineTuneAsync(request);
+        return Ok(ApiResponse<TrainResponse>.Ok(result, "Model mevcut agirliklar uzerinden fine-tune edildi"));
     }
 }
