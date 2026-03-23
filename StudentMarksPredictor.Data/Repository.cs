@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentMarksPredictor.Data.Models;
 using NN = StudentMarksPredictor.NeuralNetwork;
 
-#nullable enable
 namespace StudentMarksPredictor.Data;
 
 public class Repository

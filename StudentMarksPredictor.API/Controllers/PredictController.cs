@@ -16,9 +16,9 @@ public class PredictController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<PredictResponse>> Predict([FromBody] PredictRequest request)
+    public async Task<ActionResult<ApiResponse<PredictResponse>>> Predict([FromBody] PredictRequest request)
     {
         var result = await _service.PredictMarksAsync(request);
-        return Ok(result);
+        return Ok(ApiResponse<PredictResponse>.Ok(result));
     }
 }

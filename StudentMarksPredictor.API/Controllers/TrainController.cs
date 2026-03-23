@@ -16,9 +16,9 @@ public class TrainController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<TrainResponse>> Train([FromBody] TrainRequest request)
+    public async Task<ActionResult<ApiResponse<TrainResponse>>> Train([FromBody] TrainRequest request)
     {
         var result = await _service.TrainModelAsync(request);
-        return Ok(result);
+        return Ok(ApiResponse<TrainResponse>.Ok(result, "Model basariyla egitildi"));
     }
 }
