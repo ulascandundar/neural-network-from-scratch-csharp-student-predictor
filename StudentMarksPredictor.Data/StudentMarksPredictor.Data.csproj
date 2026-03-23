@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0-preview.3.25171.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StudentMarksPredictor.NeuralNetwork\StudentMarksPredictor.NeuralNetwork.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StudentMarksPredictor.Data\StudentMarksPredictor.Data.csproj" />
+    <ProjectReference Include="..\StudentMarksPredictor.NeuralNetwork\StudentMarksPredictor.NeuralNetwork.csproj" />
+  </ItemGroup>
+
+</Project>
