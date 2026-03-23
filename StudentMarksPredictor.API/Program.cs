@@ -17,6 +17,7 @@ builder.Services.AddScoped<TrainService>();
 builder.Services.AddScoped<FineTuneService>();
 builder.Services.AddScoped<TrainingDataService>();
 builder.Services.AddScoped<PredictService>();
+builder.Services.AddScoped<ScoreService>();
 
 var app = builder.Build();
 
