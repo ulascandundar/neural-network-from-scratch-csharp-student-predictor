@@ -48,6 +48,7 @@ public class FineTuneService
             FinalMSE = finalMSE,
             Epochs = request.Epochs,
             LearningRate = request.LearningRate,
+            HiddenSize = existingSession.HiddenSize,
             TrainingRecords = records.Count,
             CreatedAt = session.CreatedAt
         };

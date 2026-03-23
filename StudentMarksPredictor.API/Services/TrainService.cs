@@ -42,6 +42,7 @@ public class TrainService
             FinalMSE = finalMSE,
             Epochs = request.Epochs,
             LearningRate = request.LearningRate,
+            HiddenSize = request.HiddenSize,
             TrainingRecords = records.Count,
             CreatedAt = session.CreatedAt
         };
